@@ -20,11 +20,9 @@ if ( !defined( 'COOKIETABLE' )) {
 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https' : 'http';
 
 # DB, user & pass
-$db_name = 'u1087935_skpbz';
-$username = 'u1087935_TsZeKa2eauMwDa4QpaMGgqYA956a7h';
-// $username = 'root';
-$password = '848HMbVhJKfKqZDyz3P4fS6cDB5qgP';
-// $password = '';
+$db_name = 'DB_NAME';
+$username = 'DB_ACCESS_USERNAME';
+$password = 'DB_ACCESS_USERPASSWORD';
 $length = 5;
 date_default_timezone_set('Asia/Jakarta');
 
@@ -115,22 +113,6 @@ function fixUrl( $url ) {
     $url = strpos($url, 'http') !== 0 ? "https://$url" : $url;
     return $url;
 }
-
-// function validateUrl( $url ) {
-//     stream_context_set_default(
-//         array('http' => array('method' => 'HEAD'))
-//     );
-//     if ( filter_var($url, FILTER_VALIDATE_URL) ) {
-//         $headers = @get_headers($url);
-//         if ( !$headers || strpos($headers[0], '404' ) ){
-//             return FALSE;
-//         } else {
-//             return TRUE;
-//         }
-//     } else {
-//         return FALSE;
-//     }
-// }
 
 function validateUrl( $url ) {
     if ( filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED && FILTER_FLAG_HOST_REQUIRED) ) {
@@ -337,7 +319,6 @@ if ( isset($_SESSION['input-url']) && !empty($_SESSION['input-url']) ) {
 if ( !empty($_POST['original-url']) && !empty($_POST['short-link-after']) ) {
     $original_url = $_POST['original-url'];
     $short_link_after = $_POST['short-link-after'];
-    // $result = updateData( $db_connection, RULETABLE, $original_url, 'original_url', $short_link_after, 'short_url');
     
     # Verify if proposed short link haven't been used before
     $unique_link_found = FALSE;
@@ -376,13 +357,6 @@ $query = $db_connection -> query("select * from redirect_rule where cookie_id='$
 
 # Get url entries for particular id
 $id_entries = getData($db_connection, COOKIETABLE, $cookie_value_hashed, 'id', 'entries');
-
-// $query2 = $db_connection -> query("select short_url from redirect_rule where original_url='http://www.google.com' and cookie_id='36a107f97722262b28d5ae36973a8875290a7066bd9795e958dd655d8274c9db'");
-// while ( $row2 = $query2 -> fetch_assoc() ) {
-//     $result2 = $row2['short_url'];
-// }
-// echo $result2;
-// print_r($result2);
 
 
 ?>
